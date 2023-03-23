@@ -3,7 +3,7 @@ import os
 import numpy as np
 import pandas as pd
 import streamlit as st
-
+import cv2
 from PIL import Image
 from streamlit_drawable_canvas import st_canvas
 from svgpathtools import parse_path
@@ -47,7 +47,7 @@ def full_app():
             SIZE = 192
             canvas_result = st_canvas(
                 fill_color='#000000',
-                stroke_width=20,
+                stroke_width=3,
                 stroke_color='#FFFFFF',
                 background_color='#000000',
                 width=SIZE,
