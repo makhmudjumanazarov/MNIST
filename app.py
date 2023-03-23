@@ -2,7 +2,7 @@ import base64
 import json
 import os
 import re
-import time
+# import time
 import uuid
 from io import BytesIO
 from pathlib import Path
@@ -42,7 +42,6 @@ def full_app():
         stroke_color = st.sidebar.color_picker("Stroke color hex: ")
         bg_color = st.sidebar.color_picker("Background color hex: ", "#eee")
         bg_image = st.sidebar.file_uploader("Background image:", type=["png", "jpg"])
-#         realtime_update = st.sidebar.checkbox("Update in realtime", True)
 
         # Create a canvas component
         canvas_result = st_canvas(
@@ -51,11 +50,9 @@ def full_app():
             stroke_color=stroke_color,
             background_color=bg_color,
             background_image=Image.open(bg_image) if bg_image else None,
-#             update_streamlit=realtime_update,
             height=150,
             drawing_mode=drawing_mode,
             point_display_radius=point_display_radius if drawing_mode == 'point' else 0,
-#             display_toolbar=st.sidebar.checkbox("Display toolbar", True),
             key="full_app",
         )
 
@@ -69,8 +66,8 @@ def full_app():
             st.dataframe(objects)
 
 if __name__ == "__main__":
-    st.set_page_config(
-        page_title="Streamlit Drawable Canvas Demo", page_icon=":pencil2:"
-    )
+#     st.set_page_config(
+#         page_title="Streamlit Drawable Canvas Demo", page_icon=":pencil2:"
+#     )
     st.title("Drawable Canvas Demo")
     main()
