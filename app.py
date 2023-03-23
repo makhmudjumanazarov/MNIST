@@ -21,7 +21,6 @@ def main():
     if "color_to_label" not in st.session_state:
         st.session_state["color_to_label"] = {}
     PAGES = {
-        "About": about,
         "Basic example": full_app,
         "Download Base64 encoded PNG": png_export,
     }
@@ -39,43 +38,8 @@ def main():
             unsafe_allow_html=True,
         )
 
-
-def about():
-    st.markdown(
-        """
-    Welcome to the demo of [Streamlit Drawable Canvas](https://github.com/andfanilo/streamlit-drawable-canvas).
-    
-    On this site, you will find a full use case for this Streamlit component, and answers to some frequently asked questions.
-    
-    :pencil: [Demo source code](https://github.com/andfanilo/streamlit-drawable-canvas-demo/)    
-    """
-    )
-    st.image("img/demo.gif")
-    st.markdown(
-        """
-    What you can do with Drawable Canvas:
-
-    * Draw freely, lines, circles and boxes on the canvas, with options on stroke & fill
-    * Rotate, skew, scale, move any object of the canvas on demand
-    * Select a background color or image to draw on
-    * Get image data and every drawn object properties back to Streamlit !
-    * Choose to fetch back data in realtime or on demand with a button
-    * Undo, Redo or Drop canvas
-    * Save canvas data as JSON to reuse for another session
-    """
-    )
-
-
 def full_app():
     st.sidebar.header("Configuration")
-    st.markdown(
-        """
-    Draw on the canvas, get the drawings back to Streamlit!
-    * Configure canvas in the sidebar
-    * In transform mode, double-click an object to remove it
-    * In polygon mode, left-click to add a point, right-click to close the polygon, double-click to remove the latest point
-    """
-    )
 
     with st.echo("below"):
         # Specify canvas parameters in application
