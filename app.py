@@ -58,7 +58,7 @@ def full_app():
             objects = pd.json_normalize(canvas_result.json_data["objects"])
             for col in objects.select_dtypes(include=["object"]).columns:
                 objects[col] = objects[col].astype("str")
-#             st.dataframe(objects)
+            st.dataframe(objects)
 
 if __name__ == "__main__":
     main()
