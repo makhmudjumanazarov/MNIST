@@ -77,3 +77,4 @@ if st.button('Predict'):
         st.bar_chart(val[0])
     except:
         pass
+
