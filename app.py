@@ -35,39 +35,35 @@ def full_app():
         bg_image = st.sidebar.file_uploader("Background image:", type=["png", "jpg"])
 
 
-            genre = st.radio(
-            "Choose to use model",
-            ('Draw by hand', 'Upload image'))
+        genre = st.radio(
+        "Choose to use model",
+        ('Draw by hand', 'Upload image'))
 
-            if genre == 'Draw by hand':
+        if genre == 'Draw by hand':
+            st.markdown('''
+            Try to write a digit!
+            ''')
+            SIZE = 192
+            canvas_result = st_canvas(
+                fill_color='#000000',
+                stroke_width=7,
+                stroke_color='#FFFFFF',
+                background_color='#000000',
+                width=SIZE,
+                height=SIZE,
+                drawing_mode="freedraw",
+                key='canvas')
 
-
-                st.markdown('''
-                Try to write a digit!
-                ''')
-
-                SIZE = 192
-                canvas_result = st_canvas(
-                    fill_color='#000000',
-                    stroke_width=7,
-                    stroke_color='#FFFFFF',
-                    background_color='#000000',
-                    width=SIZE,
-                    height=SIZE,
-                    drawing_mode="freedraw",
-                    key='canvas')
-
-                if canvas_result.image_data is not None:
-                    img = cv2.resize(canvas_result.image_data.astype('uint8'), (28, 28))
-                    rescaled = cv2.resize(img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
-                    st.write('Model Input')
-                    st.image(rescaled)
-            else:
-                img_file_buffer = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
-                if img_file_buffer is not None:
-                    image = Image.open(img_file_buffer)
-                    img_array = np.array(image)
+            if canvas_result.image_data is not None:
+                img = cv2.resize(canvas_result.image_data.astype('uint8'), (28, 28))
+                rescaled = cv2.resize(img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
+                st.write('Model Input')
+                st.image(rescaled)
+        else:
+            img_file_buffer = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
+            if img_file_buffer is not None:
+                image = Image.open(img_file_buffer)
+                img_array = np.array(image)
 
 if __name__ == "__main__":
     main()
-
