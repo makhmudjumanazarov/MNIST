@@ -37,7 +37,7 @@ def full_app():
             "Drawing tool:",
             ("freedraw", "line", "rect", "circle", "transform", "polygon", "point"),
         )
-        stroke_width = st.sidebar.slider("Stroke width: ", 1, 25, 3)
+#         stroke_width = st.sidebar.slider("Stroke width: ", 1, 25, 3)
         if drawing_mode == 'point':
             point_display_radius = st.sidebar.slider("Point display radius: ", 1, 25, 3)
         stroke_color = st.sidebar.color_picker("Stroke color hex: ")
@@ -74,5 +74,4 @@ if __name__ == "__main__":
         page_title="Streamlit Drawable Canvas Demo", page_icon=":pencil2:"
     )
     st.title("Drawable Canvas Demo")
-#     st.sidebar.subheader("Configuration")
     main()
