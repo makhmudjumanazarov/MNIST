@@ -45,7 +45,7 @@ def full_app():
             ''')
             SIZE = 192
             canvas_result = st_canvas(
-                fill_color='#000000',
+                fill_color="rgba(255, 165, 0, 0.3)",  # Fixed fill color with some opacity,
                 stroke_width=7,
                 stroke_color='#FFFFFF',
                 background_color='#000000',
