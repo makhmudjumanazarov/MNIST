@@ -29,9 +29,11 @@ def full_app():
     with st.echo("below"):
         drawing_mode = st.sidebar.selectbox(
             "Drawing tool:",
-            ("freedraw")
+            ("freedraw", "point"),
         )
         stroke_width = st.sidebar.slider("Stroke width: ", 1, 25, 3)
+        if drawing_mode == 'point':
+            point_display_radius = st.sidebar.slider("Point display radius: ", 1, 25, 3)
         stroke_color = st.sidebar.color_picker("Stroke color hex: ")
         bg_color = st.sidebar.color_picker("Background color hex: ", "#eee")
         bg_image = st.sidebar.file_uploader("Background image:", type=["png", "jpg"])
