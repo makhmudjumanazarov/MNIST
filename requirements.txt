@@ -78,5 +78,4 @@ streamlit>=0.88
 streamlit-drawable-canvas>=0.8
 svgpathtools
 svgwrite
-opencv-python==4.7.0.72
-streamlit-webrtc==0.45.0
+opencv-python
