@@ -23,10 +23,7 @@ def main():
     PAGES = {
         "About": about,
         "Basic example": full_app,
-        "Get center coords of circles": center_circle_app,
-        "Color-based image annotation": color_annotation_app,
         "Download Base64 encoded PNG": png_export,
-        "Compute the length of drawn arcs": compute_arc_length,
     }
     page = st.sidebar.selectbox("Page:", options=list(PAGES.keys()))
     PAGES[page]()
