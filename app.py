@@ -74,5 +74,5 @@ if __name__ == "__main__":
         page_title="Streamlit Drawable Canvas Demo", page_icon=":pencil2:"
     )
     st.title("Drawable Canvas Demo")
-    st.sidebar.subheader("Configuration")
+#     st.sidebar.subheader("Configuration")
     main()
