@@ -3,7 +3,7 @@ import os
 import numpy as np
 import pandas as pd
 import streamlit as st
-import cv2
+# import cv2
 from PIL import Image
 from streamlit_drawable_canvas import st_canvas
 from svgpathtools import parse_path
