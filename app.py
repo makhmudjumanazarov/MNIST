@@ -1,19 +1,13 @@
-# import base64
 import json
 import os
-# import re
-# import time
-# import uuid
-# from io import BytesIO
-from pathlib import Path
-
 import numpy as np
 import pandas as pd
 import streamlit as st
+
 from PIL import Image
 from streamlit_drawable_canvas import st_canvas
 from svgpathtools import parse_path
-
+from pathlib import Path
 
 def main():
     if "button_id" not in st.session_state:
