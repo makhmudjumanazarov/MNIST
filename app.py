@@ -115,11 +115,6 @@ def full_app():
                 objects[col] = objects[col].astype("str")
             st.dataframe(objects)
 
-
-
-
-
-
 def png_export():
     st.markdown(
         """
