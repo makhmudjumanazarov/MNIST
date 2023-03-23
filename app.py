@@ -44,7 +44,7 @@ def full_app():
             stroke_width=stroke_width,
             stroke_color=stroke_color,
             background_color=bg_color,
-#             background_image=Image.open(bg_image) if bg_image else None,
+            background_image=Image.open(bg_image) if bg_image else None,
             height=150,
             drawing_mode=drawing_mode,
             point_display_radius=point_display_radius if drawing_mode == 'point' else 0,
