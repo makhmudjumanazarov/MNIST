@@ -2,7 +2,7 @@ import base64
 import json
 import os
 import re
-# import time
+import time
 import uuid
 from io import BytesIO
 from pathlib import Path
@@ -22,12 +22,9 @@ def main():
         st.session_state["color_to_label"] = {}
     PAGES = {
         "Basic example": full_app,
-#         "Download Base64 encoded PNG": png_export,
     }
     page = st.sidebar.selectbox("Page:", options=list(PAGES.keys()))
     PAGES[page]()
-
-
 def full_app():
 
     with st.echo("below"):
@@ -66,8 +63,4 @@ def full_app():
             st.dataframe(objects)
 
 if __name__ == "__main__":
-#     st.set_page_config(
-#         page_title="Streamlit Drawable Canvas Demo", page_icon=":pencil2:"
-#     )
-    st.title("Drawable Canvas Demo")
     main()
