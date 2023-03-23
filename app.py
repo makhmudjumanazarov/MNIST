@@ -119,96 +119,8 @@ def full_app():
             st.dataframe(objects)
 
 
-def center_circle_app():
-    st.markdown(
-        """
-    Computation of center coordinates for circle drawings some understanding of Fabric.js coordinate system
-    and play with some trigonometry.
-
-    Coordinates are canvas-related to top-left of image, increasing x going down and y going right.
-
-    ```
-    center_x = left + radius * cos(angle * pi / 180)
-    center_y = top + radius * sin(angle * pi / 180)
-    ```
-    """
-    )
-    bg_image = Image.open("img/tennis-balls.jpg")
-
-    with open("saved_state.json", "r") as f:
-        saved_state = json.load(f)
-
-    canvas_result = st_canvas(
-        fill_color="rgba(255, 165, 0, 0.2)",  # Fixed fill color with some opacity
-        stroke_width=5,
-        stroke_color="black",
-        background_image=bg_image,
-        initial_drawing=saved_state
-        if st.sidebar.checkbox("Initialize with saved state", False)
-        else None,
-        height=400,
-        width=600,
-        drawing_mode="circle",
-        key="center_circle_app",
-    )
-    with st.echo("below"):
-        if canvas_result.json_data is not None:
-            df = pd.json_normalize(canvas_result.json_data["objects"])
-            if len(df) == 0:
-                return
-            df["center_x"] = df["left"] + df["radius"] * np.cos(
-                df["angle"] * np.pi / 180
-            )
-            df["center_y"] = df["top"] + df["radius"] * np.sin(
-                df["angle"] * np.pi / 180
-            )
-
-            st.subheader("List of circle drawings")
-            for _, row in df.iterrows():
-                st.markdown(
-                    f'Center coords: ({row["center_x"]:.2f}, {row["center_y"]:.2f}). Radius: {row["radius"]:.2f}'
-                )
 
 
-def color_annotation_app():
-    st.markdown(
-        """
-    Drawable Canvas doesn't provided out-of-the-box image annotation capabilities, but we can hack something with session state,
-    by mapping a drawing fill color to a label.
-
-    Annotate pedestrians, cars and traffic lights with this one, with any color/label you want 
-    (though in a real app you should rather provide your own label and fills :smile:).
-
-    If you really want advanced image annotation capabilities, you'd better check [Streamlit Label Studio](https://discuss.streamlit.io/t/new-component-streamlit-labelstudio-allows-you-to-embed-the-label-studio-annotation-frontend-into-your-application/9524)
-    """
-    )
-    with st.echo("below"):
-        bg_image = Image.open("img/annotation.jpeg")
-        label_color = (
-            st.sidebar.color_picker("Annotation color: ", "#EA1010") + "77"
-        )  # for alpha from 00 to FF
-        label = st.sidebar.text_input("Label", "Default")
-        mode = "transform" if st.sidebar.checkbox("Move ROIs", False) else "rect"
-
-        canvas_result = st_canvas(
-            fill_color=label_color,
-            stroke_width=3,
-            background_image=bg_image,
-            height=320,
-            width=512,
-            drawing_mode=mode,
-            key="color_annotation_app",
-        )
-        if canvas_result.json_data is not None:
-            df = pd.json_normalize(canvas_result.json_data["objects"])
-            if len(df) == 0:
-                return
-            st.session_state["color_to_label"][label_color] = label
-            df["label"] = df["fill"].map(st.session_state["color_to_label"])
-            st.dataframe(df[["top", "left", "width", "height", "fill", "label"]])
-
-        with st.expander("Color to label mapping"):
-            st.json(st.session_state["color_to_label"])
 
 
 def png_export():
@@ -288,38 +200,6 @@ def png_export():
             + f'<a download="{file_path}" id="{button_id}" href="data:file/txt;base64,{b64}">Export PNG</a><br></br>'
         )
         st.markdown(dl_link, unsafe_allow_html=True)
-
-
-def compute_arc_length():
-    st.markdown(
-        """
-    Using an external SVG manipulation library like [svgpathtools](https://github.com/mathandy/svgpathtools)
-    You can do some interesting things on drawn paths.
-    In this example we compute the length of any drawn path.
-    """
-    )
-    with st.echo("below"):
-        bg_image = Image.open("img/annotation.jpeg")
-
-        canvas_result = st_canvas(
-            stroke_color="yellow",
-            stroke_width=3,
-            background_image=bg_image,
-            height=320,
-            width=512,
-            drawing_mode="freedraw",
-            key="compute_arc_length",
-        )
-        if (
-            canvas_result.json_data is not None
-            and len(canvas_result.json_data["objects"]) != 0
-        ):
-            df = pd.json_normalize(canvas_result.json_data["objects"])
-            paths = df["path"].tolist()
-            for ind, path in enumerate(paths):
-                path = parse_path(" ".join([str(e) for line in path for e in line]))
-                st.write(f"Path {ind} has length {path.length():.3f} pixels")
-
 
 if __name__ == "__main__":
     st.set_page_config(
