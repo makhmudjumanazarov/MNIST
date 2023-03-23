@@ -11,59 +11,67 @@ from pathlib import Path
 
 
 
-def main():
-    if "button_id" not in st.session_state:
-        st.session_state["button_id"] = ""
-    if "color_to_label" not in st.session_state:
-        st.session_state["color_to_label"] = {}
-    PAGES = {
-        "Basic example": full_app,
-    }
-    page = st.sidebar.selectbox("Page:", options=list(PAGES.keys()))
-    PAGES[page]()
-def full_app():
-    with st.echo("below"):
-        drawing_mode = st.sidebar.selectbox(
-            "Drawing tool:",
-            ("freedraw", "point"),
-        )
-        stroke_width = st.sidebar.slider("Stroke width: ", 1, 25, 3)
-        if drawing_mode == 'point':
-            point_display_radius = st.sidebar.slider("Point display radius: ", 1, 25, 3)
-        stroke_color = st.sidebar.color_picker("Stroke color hex: ")
-        bg_color = st.sidebar.color_picker("Background color hex: ", "#eee")
-        bg_image = st.sidebar.file_uploader("Background image:", type=["png", "jpg"])
+st.title('MNIST Digit Recognizer')
+
+st.header(":red[Sample images for classes]")
+clas = st.radio(
+"Choose class",
+('0', '1', '2', '3', '4', '5', '6', '7', '8', '9'), horizontal=True)
+images = get_images(option, clas)
+rand = randint(0, 9)
+a = cv2.resize(images[rand], (112,112), interpolation = cv2.INTER_AREA)
+st.image(a)
+
+st.header(":blue[Using model]")
+
+genre = st.radio(
+"Choose to use model",
+('Draw by hand', 'Upload image'))
+
+if genre == 'Draw by hand':
 
 
-        genre = st.radio(
-        "Choose to use model",
-        ('Draw by hand', 'Upload image'))
+    st.markdown('''
+    Try to write a digit!
+    ''')
 
-        if genre == 'Draw by hand':
-            st.markdown('''
-            Try to write a digit!
-            ''')
-            SIZE = 192
-            canvas_result = st_canvas(
-                fill_color="rgba(255, 165, 0, 0.3)",  # Fixed fill color with some opacity,
-                stroke_width=7,
-                stroke_color='#FFFFFF',
-                background_color='#000000',
-                width=SIZE,
-                height=SIZE,
-                drawing_mode="freedraw",
-                key='canvas')
+    SIZE = 192
+    canvas_result = st_canvas(
+        fill_color='#000000',
+        stroke_width=20,
+        stroke_color='#FFFFFF',
+        background_color='#000000',
+        width=SIZE,
+        height=SIZE,
+        drawing_mode="freedraw",
+        key='canvas')
 
-            if canvas_result.image_data is not None:
-                img = cv2.resize(canvas_result.image_data.astype('uint8'), (28, 28))
-                rescaled = cv2.resize(img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
-                st.write('Model Input')
-                st.image(rescaled)
-        else:
-            img_file_buffer = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
-            if img_file_buffer is not None:
-                image = Image.open(img_file_buffer)
-                img_array = np.array(image)
+    if canvas_result.image_data is not None:
+        img = cv2.resize(canvas_result.image_data.astype('uint8'), (28, 28))
+        rescaled = cv2.resize(img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
+        st.write('Model Input')
+        st.image(rescaled)
+else:
+    img_file_buffer = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
+    if img_file_buffer is not None:
+        image = Image.open(img_file_buffer)
+        img_array = np.array(image)
 
-if __name__ == "__main__":
-    main()
+
+if st.button('Predict'):
+    try:
+        test_x = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        val = mnist.predict(test_x.reshape(1, 28, 28))
+        st.write(f'result: {np.argmax(val[0])}')
+        st.bar_chart(val[0])
+    except:
+        pass
+    try:
+        img_array = cv2.cvtColor(img_array, cv2.COLOR_RGB2GRAY)
+        img_array = cv2.resize(img_array.astype('uint8'), (28, 28))
+        img_array.reshape(1, 28, 28)
+        val = mnist.predict(img_array.reshape(1, 28, 28))
+        st.write(f'result: {np.argmax(val[0])}')
+        st.bar_chart(val[0])
+    except:
+        pass
