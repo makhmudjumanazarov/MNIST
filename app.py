@@ -22,7 +22,7 @@ def main():
         st.session_state["color_to_label"] = {}
     PAGES = {
         "Basic example": full_app,
-        "Download Base64 encoded PNG": png_export,
+#         "Download Base64 encoded PNG": png_export,
     }
     page = st.sidebar.selectbox("Page:", options=list(PAGES.keys()))
     PAGES[page]()
