@@ -13,16 +13,16 @@ def get_images(data, clas):
     return [cv2.imread(i) for i in glob('streamlit_samples/'+data+'/'+clas+'*')]
 
 
-st.title('MNIST Digit Recognizer')
+# st.title('MNIST Digit Recognizer')
 
-st.header(":red[Sample images for classes]")
-clas = st.radio(
-"Choose class",
-('0', '1', '2', '3', '4', '5', '6', '7', '8', '9'), horizontal=True)
-images = get_images(option, clas)
-rand = randint(0, 9)
-a = cv2.resize(images[rand], (112,112), interpolation = cv2.INTER_AREA)
-st.image(a)
+# st.header(":red[Sample images for classes]")
+# clas = st.radio(
+# "Choose class",
+# ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9'), horizontal=True)
+# images = get_images(option, clas)
+# rand = randint(0, 9)
+# a = cv2.resize(images[rand], (112,112), interpolation = cv2.INTER_AREA)
+# st.image(a)
 
 st.header(":blue[Using model]")
 
