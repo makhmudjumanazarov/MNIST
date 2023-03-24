@@ -64,7 +64,7 @@ if st.button('Predict'):
 #         val = mnist.predict(test_x.reshape(1, 28, 28))
 #         st.write(f'result: {np.argmax(val[0])}')
 #         st.bar_chart(val[0])
-        st.write(test_x)
+        st.write(test_x.shape)
     except:
         pass
     try:
