@@ -61,9 +61,10 @@ else:
 if st.button('Predict'):
     try:
         test_x = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        val = mnist.predict(test_x.reshape(1, 28, 28))
-        st.write(f'result: {np.argmax(val[0])}')
-        st.bar_chart(val[0])
+#         val = mnist.predict(test_x.reshape(1, 28, 28))
+#         st.write(f'result: {np.argmax(val[0])}')
+#         st.bar_chart(val[0])
+        st.write(test_x)
     except:
         pass
     try:
