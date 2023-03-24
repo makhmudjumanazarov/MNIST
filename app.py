@@ -23,6 +23,7 @@ model_load = load_model('model')
 
 st.title('MNIST Digit Recognizer')
 genre = st.radio(
+    "choose one of the two",
 ('Draw by hand', 'Upload image'))
 
 if genre == 'Draw by hand':
