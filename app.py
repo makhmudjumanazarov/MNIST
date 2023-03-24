@@ -1,5 +1,3 @@
-import json
-import os
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -11,52 +9,19 @@ from svgpathtools import parse_path
 from pathlib import Path
 from tensorflow.keras.models import load_model
 
-def get_images(data, clas):
-    return [cv2.imread(i) for i in glob('streamlit_samples/'+data+'/'+clas+'*')]
-
 def fe_data(df):
-    # FE: scaling data ant transform target to categorical
     df = df / 255.
     return df
 
 def get_predictions_load(X_test):
     # Digits prediction
-
     predictions = model_load.predict(X_test)    
     predictions = np.argmax(predictions, axis=1)
-    
     return predictions
 
 model_load = load_model('model')
 
-def plot_images_sample_test(X, Y):
-    # Draw plot for images sample
-    plt.figure(figsize=(14,14))
-    rand_indicies = np.random.randint(len(X), size=1)
-    plt.plot(1)
-    plt.xticks([])
-    plt.yticks([])
-    index = rand_indicies[0]
-    plt.imshow(np.squeeze(X[index]), cmap=plt.cm.binary)
-    plt.xlabel(Y[index]) # raqamni aslini ko'rsatadi
-    plt.show()
-    
-# predictions = get_predictions_load(X_test[11:12])
-# plot_images_sample_test(X_test[11:12], predictions) 
-
 st.title('MNIST Digit Recognizer')
-
-# st.header(":green[Sample images for classes]")
-# clas = st.radio(
-# "Choose class",
-# ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9'), horizontal=True)
-# images = get_images(option, clas)
-# rand = randint(0, 9)
-# a = cv2.resize(images[rand], (112,112), interpolation = cv2.INTER_AREA)
-# st.image(a)
-
-# st.header(":blue[Using model]")
-
 genre = st.radio(
 "Choose to use model",
 ('Draw by hand', 'Upload image'))
@@ -79,29 +44,19 @@ if genre == 'Draw by hand':
     if canvas_result.image_data is not None:
         img = cv2.resize(canvas_result.image_data.astype('uint8'), (28, 28))
         rescaled = cv2.resize(img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
-#         st.write('Model Input')
         st.image(rescaled)
 else:
     img_file_buffer = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
     if img_file_buffer is not None:
         image = Image.open(img_file_buffer)
         img_array = np.array(image)
-
-
+        
 if st.button('Predict'):
     try:
         test_x = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         prediction = model_load.predict(fe_data(test_x).reshape(1, 28, 28))    
         predictions = np.argmax(prediction, axis=1)
-        st.bar_chart(prediction[0])
-    
-#         val = mnist.predict(test_x.reshape(1, 28, 28))
-#         st.write(f'result: {np.argmax(val[0])}')
-#         st.bar_chart(val[0])
-        
-#         predictions = get_predictions_load(fe_data(test_x))
-#         st.write(test_x.shape)
-#         st.write(fe_data(test_x))
+#         st.bar_chart(prediction[0])
         st.write(predictions[0])
     except:
         pass
@@ -114,4 +69,3 @@ if st.button('Predict'):
         st.bar_chart(val[0])
     except:
         pass
-
