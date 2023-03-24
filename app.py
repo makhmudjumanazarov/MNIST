@@ -32,12 +32,9 @@ genre = st.radio(
 ('Draw by hand', 'Upload image'))
 
 if genre == 'Draw by hand':
-
-
     st.markdown('''
     Try to write a digit!
     ''')
-
     SIZE = 192
     canvas_result = st_canvas(
         fill_color='#000000',
@@ -55,7 +52,7 @@ if genre == 'Draw by hand':
 #         st.write('Model Input')
         st.image(rescaled)
         st.write(rescaled.shape)
-        st.write(st.image(rescaled))
+        st.write(image(rescaled))
 else:
     img_file_buffer = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
     if img_file_buffer is not None:
