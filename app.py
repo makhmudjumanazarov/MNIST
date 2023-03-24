@@ -79,7 +79,7 @@ if genre == 'Draw by hand':
     if canvas_result.image_data is not None:
         img = cv2.resize(canvas_result.image_data.astype('uint8'), (28, 28))
         rescaled = cv2.resize(img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
-        st.write('Model Input')
+#         st.write('Model Input')
         st.image(rescaled)
 else:
     img_file_buffer = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
@@ -91,8 +91,9 @@ else:
 if st.button('Predict'):
     try:
         test_x = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        predictions = model_load.predict(fe_data(test_x).reshape(1, 28, 28))    
-        predictions = np.argmax(predictions, axis=1)
+        prediction = model_load.predict(fe_data(test_x).reshape(1, 28, 28))    
+        predictions = np.argmax(prediction, axis=1)
+        st.bar_chart(prediction[0])
     
 #         val = mnist.predict(test_x.reshape(1, 28, 28))
 #         st.write(f'result: {np.argmax(val[0])}')
