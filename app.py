@@ -95,10 +95,10 @@ if st.button('Predict'):
 #         st.write(f'result: {np.argmax(val[0])}')
 #         st.bar_chart(val[0])
         
-        predictions = get_predictions_load(fe_data(test_x))
+#         predictions = get_predictions_load(fe_data(test_x))
 #         st.write(test_x.shape)
         st.write(fe_data(test_x))
-        st.write(predictions)
+#         st.write(predictions)
     except:
         pass
     try:
