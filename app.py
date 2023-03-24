@@ -57,7 +57,8 @@ if st.button('Predict'):
         prediction = model_load.predict(fe_data(test_x).reshape(1, 28, 28))    
         predictions = np.argmax(prediction, axis=1)
 #         st.bar_chart(prediction[0])
-        st.title(predictions[0])
+#         st.title(predictions[0])
+        st.markdown("<h6 style='text-align: center; color: red;'>predictions[0]</h6>", unsafe_allow_html=True)
     except:
         pass
     try:
