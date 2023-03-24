@@ -101,7 +101,7 @@ if st.button('Predict'):
 #         predictions = get_predictions_load(fe_data(test_x))
 #         st.write(test_x.shape)
 #         st.write(fe_data(test_x))
-        st.write(predictions)
+        st.write(predictions[0])
     except:
         pass
     try:
