@@ -54,7 +54,7 @@ if genre == 'Draw by hand':
         rescaled = cv2.resize(img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
 #         st.write('Model Input')
         st.image(rescaled)
-        st.write(rescaled)
+        st.write(rescaled.shape)
 else:
     img_file_buffer = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
     if img_file_buffer is not None:
