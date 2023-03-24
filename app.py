@@ -70,6 +70,9 @@ if st.button('Predict'):
         predict = model_load.predict(img_array.reshape(1, 28, 28))    
         predicts = np.argmax(predict, axis=1)
 #         st.bar_chart(val[0])
-        st.write(predicts[0])
+#         st.write(predicts[0])
+        output_text = predicts[0]
+        font_size = "36px"
+        st.markdown("<h3 style='text-align: left; color: black; font-size: {};'>{}</h3>".format(font_size, output_text), unsafe_allow_html=True)
     except:
         pass
