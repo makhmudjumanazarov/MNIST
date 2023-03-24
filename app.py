@@ -59,6 +59,9 @@ if st.button('Predict'):
 #         st.bar_chart(prediction[0])
 #         st.title(predictions[0])
         st.markdown("<h6 style='text-align: center; color: red;'>predictions[0]</h6>", unsafe_allow_html=True)
+        output_text = predictions[0]
+        font_size = "48px"
+        st.markdown("<h2 style='text-align: left; color: black; font-size: {};'>{}</h2>".format(font_size, output_text), unsafe_allow_html=True)
     except:
         pass
     try:
