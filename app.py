@@ -65,6 +65,7 @@ if st.button('Predict'):
 #         st.write(f'result: {np.argmax(val[0])}')
 #         st.bar_chart(val[0])
         st.write(test_x.shape)
+        st.write(test_x)
     except:
         pass
     try:
