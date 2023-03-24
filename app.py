@@ -8,6 +8,7 @@ from PIL import Image
 from streamlit_drawable_canvas import st_canvas
 from svgpathtools import parse_path
 from pathlib import Path
+from tensorflow.keras.models import load_model
 
 def get_images(data, clas):
     return [cv2.imread(i) for i in glob('streamlit_samples/'+data+'/'+clas+'*')]
