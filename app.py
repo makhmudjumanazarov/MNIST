@@ -91,14 +91,17 @@ else:
 if st.button('Predict'):
     try:
         test_x = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        predictions = model_load.predict(fe_data(test_x).reshape(1, 28, 28))    
+        predictions = np.argmax(predictions, axis=1)
+    
 #         val = mnist.predict(test_x.reshape(1, 28, 28))
 #         st.write(f'result: {np.argmax(val[0])}')
 #         st.bar_chart(val[0])
         
 #         predictions = get_predictions_load(fe_data(test_x))
-        st.write(test_x.shape)
-        st.write(fe_data(test_x))
-#         st.write(predictions)
+#         st.write(test_x.shape)
+#         st.write(fe_data(test_x))
+        st.write(predictions)
     except:
         pass
     try:
