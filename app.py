@@ -65,7 +65,10 @@ if st.button('Predict'):
         img_array = cv2.resize(img_array.astype('uint8'), (28, 28))
         img_array.reshape(1, 28, 28)
         val = mnist.predict(img_array.reshape(1, 28, 28))
-        st.write(f'result: {np.argmax(val[0])}')
-        st.bar_chart(val[0])
+        prediction = model_load.predict(img_array.reshape(1, 28, 28))    
+        predictions = np.argmax(prediction, axis=1)
+#         st.write(f'result: {np.argmax(val[0])}')
+#         st.bar_chart(val[0])
+        st.write(predictions[0])
     except:
         pass
