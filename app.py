@@ -3,6 +3,7 @@ import os
 import numpy as np
 import pandas as pd
 import streamlit as st
+import matplotlib.pyplot as plt
 import cv2
 from PIL import Image
 from streamlit_drawable_canvas import st_canvas
@@ -13,6 +14,27 @@ from tensorflow.keras.models import load_model
 def get_images(data, clas):
     return [cv2.imread(i) for i in glob('streamlit_samples/'+data+'/'+clas+'*')]
 
+def fe_data(df):
+    # FE: scaling data ant transform target to categorical
+    df = df / 255.
+    return df
+
+model_load = tf.keras.models.load_model('model')
+
+def plot_images_sample_test(X, Y):
+    # Draw plot for images sample
+    plt.figure(figsize=(14,14))
+    rand_indicies = np.random.randint(len(X), size=1)
+    plt.plot(1)
+    plt.xticks([])
+    plt.yticks([])
+    index = rand_indicies[0]
+    plt.imshow(np.squeeze(X[index]), cmap=plt.cm.binary)
+    plt.xlabel(Y[index]) # raqamni aslini ko'rsatadi
+    plt.show()
+    
+# predictions = get_predictions_load(X_test[11:12])
+# plot_images_sample_test(X_test[11:12], predictions) 
 
 st.title('MNIST Digit Recognizer')
 
@@ -65,7 +87,7 @@ if st.button('Predict'):
 #         st.write(f'result: {np.argmax(val[0])}')
 #         st.bar_chart(val[0])
         st.write(test_x.shape)
-        st.write(test_x)
+        st.write(fe_data(df))
     except:
         pass
     try:
