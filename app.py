@@ -52,7 +52,7 @@ if genre == 'Draw by hand':
 #         st.write('Model Input')
         st.image(rescaled)
         st.write(rescaled.shape)
-        st.write(image(rescaled))
+        st.write(image)
 else:
     img_file_buffer = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
     if img_file_buffer is not None:
