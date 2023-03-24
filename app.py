@@ -40,7 +40,7 @@ if genre == 'Draw by hand':
     SIZE = 192
     canvas_result = st_canvas(
         fill_color='#000000',
-        stroke_width=20,
+        stroke_width=10,
         stroke_color='#FFFFFF',
         background_color='#000000',
         width=SIZE,
