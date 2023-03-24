@@ -87,7 +87,7 @@ if st.button('Predict'):
 #         st.write(f'result: {np.argmax(val[0])}')
 #         st.bar_chart(val[0])
         st.write(test_x.shape)
-        st.write(fe_data(df))
+        st.write(fe_data(test_x))
     except:
         pass
     try:
