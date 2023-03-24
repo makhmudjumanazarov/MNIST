@@ -57,7 +57,7 @@ if st.button('Predict'):
         prediction = model_load.predict(fe_data(test_x).reshape(1, 28, 28))    
         predictions = np.argmax(prediction, axis=1)
 #         st.bar_chart(prediction[0])
-        st.write(predictions[0])
+        st.title(predictions[0])
     except:
         pass
     try:
