@@ -19,6 +19,14 @@ def fe_data(df):
     df = df / 255.
     return df
 
+def get_predictions_load(X_test):
+    # Digits prediction
+
+    predictions = model_load.predict(X_test)    
+    predictions = np.argmax(predictions, axis=1)
+    
+    return predictions
+
 model_load = load_model('model')
 
 def plot_images_sample_test(X, Y):
@@ -86,8 +94,11 @@ if st.button('Predict'):
 #         val = mnist.predict(test_x.reshape(1, 28, 28))
 #         st.write(f'result: {np.argmax(val[0])}')
 #         st.bar_chart(val[0])
-        st.write(test_x.shape)
+        
+        predictions = get_predictions_load(fe_data(test_x))
+#         st.write(test_x.shape)
         st.write(fe_data(test_x))
+        st.write(predictions)
     except:
         pass
     try:
