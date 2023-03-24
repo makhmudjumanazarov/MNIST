@@ -96,7 +96,7 @@ if st.button('Predict'):
 #         st.bar_chart(val[0])
         
 #         predictions = get_predictions_load(fe_data(test_x))
-#         st.write(test_x.shape)
+        st.write(test_x.shape)
         st.write(fe_data(test_x))
 #         st.write(predictions)
     except:
