@@ -19,7 +19,7 @@ def fe_data(df):
     df = df / 255.
     return df
 
-model_load = tf.keras.models.load_model('model')
+model_load = load_model('model')
 
 def plot_images_sample_test(X, Y):
     # Draw plot for images sample
