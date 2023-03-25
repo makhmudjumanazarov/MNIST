@@ -67,7 +67,7 @@ if st.button('Predict'):
         img_array = cv2.cvtColor(img_array, cv2.COLOR_RGB2GRAY)
         img_array = cv2.resize(img_array.astype('uint8'), (28, 28))
 #         img_array.reshape(1, 28, 28)
-        st.write(img_array)
+        st.write(img_array.reshape(1, 28, 28))
 #         predict = model_load.predict(img_array.reshape(1, 28, 28))    
 #         predicts = np.argmax(predict, axis=1)
 # #         st.bar_chart(val[0])
