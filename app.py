@@ -67,12 +67,13 @@ if st.button('Predict'):
         img_array = cv2.cvtColor(img_array, cv2.COLOR_RGB2GRAY)
         img_array = cv2.resize(img_array.astype('uint8'), (28, 28))
         img_array.reshape(1, 28, 28)
-        predict = model_load.predict(img_array.reshape(1, 28, 28))    
-        predicts = np.argmax(predict, axis=1)
-#         st.bar_chart(val[0])
-#         st.write(predicts[0])
-        output_text = predicts[0]
-        font_size = "36px"
-        st.markdown("<h3 style='text-align: left; color: black; font-size: {};'>{}</h3>".format(font_size, output_text), unsafe_allow_html=True)
+        st.write(img_array)
+#         predict = model_load.predict(img_array.reshape(1, 28, 28))    
+#         predicts = np.argmax(predict, axis=1)
+# #         st.bar_chart(val[0])
+# #         st.write(predicts[0])
+#         output_text = predicts[0]
+#         font_size = "36px"
+#         st.markdown("<h3 style='text-align: left; color: black; font-size: {};'>{}</h3>".format(font_size, output_text), unsafe_allow_html=True)
     except:
         pass
